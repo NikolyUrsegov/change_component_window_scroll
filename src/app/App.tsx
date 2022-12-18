@@ -25,7 +25,6 @@ function App() {
 
 
     const onScroll = (e: any) => {
-
         if (e > 0) {
             console.log('down')
 
@@ -83,9 +82,9 @@ function App() {
 
         //     rootRef?.current?.addEventListener('mousewheel', onScroll, {once: true})
         return () => {
-            rootRef?.current?.addEventListener('wheel', onDesktop)
+            rootRef?.current?.removeEventListener('wheel', onDesktop)
             rootRef?.current?.removeEventListener('touchmove', touchmove)
-            rootRef?.current?.addEventListener('touchstart', touchstart)
+            rootRef?.current?.removeEventListener('touchstart', touchstart)
         }
     })
 
