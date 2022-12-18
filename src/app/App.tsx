@@ -51,7 +51,7 @@ function App() {
             setTimeout(() => {
                 console.log('setTimeout')
                 console.log('add listener')
-                rootRef?.current?.addEventListener('mousewheel', onScroll, {once: true})
+                rootRef?.current?.addEventListener('wheel', onScroll, {once: true})
 
             }, 1500)
         }
