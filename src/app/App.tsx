@@ -21,10 +21,12 @@ function App() {
 
     const components: React.ReactNode[] = [<OneComponent/>, <TwoComponent/>, <ThreeComponent/>]
 
+    const [touchmoveStart, setTouchmoveStart] = useState(0)
+
 
     const onScroll = (e: any) => {
-        console.log(e.deltaY)
-        if (e.deltaY > 0) {
+
+        if (e > 0) {
             setStart((prevState) => {
                 if (prevState < components.length - 1) {
                     return prevState + 1
@@ -32,7 +34,7 @@ function App() {
                     return components.length - 1
                 }
             })
-        } else if (e.deltaY < 0) {
+        } else if (e < 0) {
             setStart((prevState) => {
                 if (prevState !== 0) {
                     return prevState - 1
@@ -44,6 +46,21 @@ function App() {
         setIsListener(false)
     }
 
+    const onDesktop = (e: any) => {
+        console.log()
+        onScroll(e.deltaY)
+    }
+
+    const touchmove = (e: any) => {
+        console.log(e.changedTouches[0].pageY)
+        setTouchmoveStart(e.changedTouches[0].pageY)
+    }
+
+    const touchend = (e: any) => {
+        console.log(touchmoveStart - e.changedTouches[0].pageY)
+        onScroll(touchmoveStart - e.changedTouches[0].pageY)
+
+    }
 
     useEffect(() => {
         if (!isListener) {
@@ -51,8 +68,9 @@ function App() {
             setTimeout(() => {
                 console.log('setTimeout')
                 console.log('add listener')
-                rootRef?.current?.addEventListener('wheel', onScroll, {once: true})
-                rootRef?.current?.addEventListener('touchmove', onScroll, {once: true})
+                rootRef?.current?.addEventListener('wheel', onDesktop, {once: true})
+                rootRef?.current?.addEventListener('touchmove', touchmove, {once: true})
+                rootRef?.current?.addEventListener('touchend', touchend, {once: true})
             }, 1500)
         }
 
@@ -60,6 +78,7 @@ function App() {
         //     rootRef?.current?.addEventListener('mousewheel', onScroll, {once: true})
         return () => {
             rootRef?.current?.removeEventListener('touchmove', onScroll)
+            rootRef?.current?.addEventListener('touchend', touchend)
         }
     })
 
