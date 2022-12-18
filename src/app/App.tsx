@@ -53,7 +53,7 @@ function App() {
                 console.log('add listener')
                 rootRef?.current?.addEventListener('mousewheel', onScroll, {once: true})
 
-            }, 1000)
+            }, 1500)
         }
 
 
