@@ -77,7 +77,7 @@ function App() {
 
         //     rootRef?.current?.addEventListener('mousewheel', onScroll, {once: true})
         return () => {
-            rootRef?.current?.removeEventListener('touchmove', onScroll)
+            rootRef?.current?.removeEventListener('touchmove', touchmove)
             rootRef?.current?.addEventListener('touchend', touchend)
         }
     })
