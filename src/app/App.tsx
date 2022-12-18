@@ -52,15 +52,15 @@ function App() {
                 console.log('setTimeout')
                 console.log('add listener')
                 rootRef?.current?.addEventListener('wheel', onScroll, {once: true})
-
+                rootRef?.current?.addEventListener('touchmove', onScroll, {once: true})
             }, 1500)
         }
 
 
         //     rootRef?.current?.addEventListener('mousewheel', onScroll, {once: true})
-        // return () => {
-        //     rootRef?.current?.removeEventListener('mousewheel', onScroll)
-        // }
+        return () => {
+            rootRef?.current?.removeEventListener('touchmove', onScroll)
+        }
     })
 
     return (
