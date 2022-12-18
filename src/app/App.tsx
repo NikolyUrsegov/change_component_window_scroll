@@ -47,18 +47,18 @@ function App() {
     }
 
     const onDesktop = (e: any) => {
-        console.log()
         onScroll(e.deltaY)
     }
 
-    const touchmove = (e: any) => {
-        console.log(e.changedTouches[0].pageY)
-        setTouchmoveStart(e.changedTouches[0].pageY)
+    const touchstart = (e: any) => {
+        setTouchmoveStart(e.changedTouches[0].clientY)
     }
 
-    const touchend = (e: any) => {
-        console.log(touchmoveStart - e.changedTouches[0].pageY)
-        onScroll(touchmoveStart - e.changedTouches[0].pageY)
+    const touchmove = (e: any) => {
+        console.log(touchmoveStart - e.changedTouches[0].clientY)
+        console.log('start', touchmoveStart)
+        console.log('finish', e.changedTouches[0].clientY)
+        onScroll(touchmoveStart - e.changedTouches[0].clientY)
 
     }
 
@@ -66,11 +66,10 @@ function App() {
         if (!isListener) {
             setIsListener(true)
             setTimeout(() => {
-                console.log('setTimeout')
                 console.log('add listener')
                 rootRef?.current?.addEventListener('wheel', onDesktop, {once: true})
                 rootRef?.current?.addEventListener('touchmove', touchmove, {once: true})
-                rootRef?.current?.addEventListener('touchend', touchend, {once: true})
+                rootRef?.current?.addEventListener('touchstart', touchstart, {once: true})
             }, 1500)
         }
 
@@ -78,7 +77,7 @@ function App() {
         //     rootRef?.current?.addEventListener('mousewheel', onScroll, {once: true})
         return () => {
             rootRef?.current?.removeEventListener('touchmove', touchmove)
-            rootRef?.current?.addEventListener('touchend', touchend)
+            rootRef?.current?.addEventListener('touchstart', touchstart)
         }
     })
 
