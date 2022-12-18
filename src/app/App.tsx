@@ -72,14 +72,18 @@ function App() {
             setTimeout(() => {
                 console.log('add listener')
                 rootRef?.current?.addEventListener('wheel', onDesktop, {once: true})
+            }, 1500)
+            setTimeout(() => {
+                console.log('add listener')
                 rootRef?.current?.addEventListener('touchend', touchmove, {once: true})
                 rootRef?.current?.addEventListener('touchstart', touchstart, {once: true})
-            }, 1500)
+            }, 100)
         }
 
 
         //     rootRef?.current?.addEventListener('mousewheel', onScroll, {once: true})
         return () => {
+            rootRef?.current?.addEventListener('wheel', onDesktop)
             rootRef?.current?.removeEventListener('touchmove', touchmove)
             rootRef?.current?.addEventListener('touchstart', touchstart)
         }
