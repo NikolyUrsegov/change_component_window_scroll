@@ -1,0 +1,8 @@
+.App{
+    height: 100vh;
+    overflow: auto;
+}
+
+h1{
+    margin: 0;
+}
