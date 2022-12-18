@@ -27,6 +27,8 @@ function App() {
     const onScroll = (e: any) => {
 
         if (e > 0) {
+            console.log('down')
+
             setStart((prevState) => {
                 if (prevState < components.length - 1) {
                     return prevState + 1
@@ -35,6 +37,8 @@ function App() {
                 }
             })
         } else if (e < 0) {
+            console.log('up')
+
             setStart((prevState) => {
                 if (prevState !== 0) {
                     return prevState - 1
@@ -68,7 +72,7 @@ function App() {
             setTimeout(() => {
                 console.log('add listener')
                 rootRef?.current?.addEventListener('wheel', onDesktop, {once: true})
-                rootRef?.current?.addEventListener('touchmove', touchmove, {once: true})
+                rootRef?.current?.addEventListener('touchend', touchmove, {once: true})
                 rootRef?.current?.addEventListener('touchstart', touchstart, {once: true})
             }, 1500)
         }
